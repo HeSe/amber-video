@@ -1,0 +1,35 @@
+{
+    "name": "ambervideo",
+    "description": "This is an example on how to use the webcam in an amber application",
+    "version": "0.1.0",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "/test_runner.js",
+        "test",
+        "tests"
+    ],
+    "authors": [
+        {
+            "name": "Sebastian Heidbrink",
+            "email": "sebastian_heidbrink@yahoo.de"
+        }
+    ],
+    "homepage": "https://github.com/HeSe/amber-video",
+    "keywords": [
+        "Amber",
+        "Smalltalk"
+    ],
+    "license": [
+        "MIT"
+    ],
+    "private": false,
+    "dependencies": {
+        "amber": "^0.14.0"
+    },
+    "devDependencies": {
+        "amber-ide-starter-dialog": "^0.1.0",
+        "helios": "^0.3.0"
+    }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "ambervideo",
+  "title": "amber-video",
+  "description": "This is an example on how to use the webcam in an amber application",
+  "version": "0.1.0",
+  "homepage": "https://github.com/HeSe/amber-video",
+  "author": {
+    "name": "Sebastian Heidbrink",
+    "email": "sebastian_heidbrink@yahoo.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/HeSe/amber-video.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HeSe/amber-video/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/HeSe/amber-video/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "amber-dev": "^0.3.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-execute": "^0.2.2",
+    "requirejs": "^2.1.15"
+  },
+  "keywords": [
+    "Amber",
+    "Smalltalk"
+  ]
+}

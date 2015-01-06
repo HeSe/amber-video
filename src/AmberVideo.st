@@ -118,7 +118,7 @@ src: aStreamOrURL
 	
 	window at: 'URL' ifAbsent:[^self]. "not supported in this browser"
 	
-	(streamObj :=  (NativeFunction constructor: 'window.URL' value:aStreamOrURL) ) ifNil:[  ^self videoElement src: aStreamOrURL ].
+	(streamObj :=  window URL: aStreamOrURL ) ifNil:[  ^self videoElement src: aStreamOrURL ].
 	
 	self videoElement src: streamObj
 !

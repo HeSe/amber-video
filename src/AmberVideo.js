@@ -488,7 +488,6 @@ protocol: 'starting',
 fn: function (aStreamOrURL){
 var self=this;
 var streamObj;
-function $NativeFunction(){return $globals.NativeFunction||(typeof NativeFunction=="undefined"?nil:NativeFunction)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -510,7 +509,7 @@ $recv(window)._at_ifAbsent_("URL",(function(){
 throw $early=[self];
 
 }));
-streamObj=$recv($NativeFunction())._constructor_value_("window.URL",aStreamOrURL);
+streamObj=$recv(window)._URL_(aStreamOrURL);
 $4=streamObj;
 if(($receiver = $4) == null || $receiver.isNil){
 $6=self._videoElement();
@@ -535,10 +534,10 @@ catch(e) {if(e===$early)return e[0]; throw e}
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStreamOrURL"],
-source: "src: aStreamOrURL\x0a\x0a\x09| streamObj |\x0a\x0a\x09( navigator at: 'mozGetUserMedia' ) ifNotNil:[ ^self videoElement mozSrcObject: aStreamOrURL ]. \x0a\x09\x0a\x09window at: 'URL' ifAbsent:[^self]. \x22not supported in this browser\x22\x0a\x09\x0a\x09(streamObj :=  (NativeFunction constructor: 'window.URL' value:aStreamOrURL) ) ifNil:[  ^self videoElement src: aStreamOrURL ].\x0a\x09\x0a\x09self videoElement src: streamObj ",
-referencedClasses: ["NativeFunction"],
+source: "src: aStreamOrURL\x0a\x0a\x09| streamObj |\x0a\x0a\x09( navigator at: 'mozGetUserMedia' ) ifNotNil:[ ^self videoElement mozSrcObject: aStreamOrURL ]. \x0a\x09\x0a\x09window at: 'URL' ifAbsent:[^self]. \x22not supported in this browser\x22\x0a\x09\x0a\x09(streamObj :=  window URL: aStreamOrURL ) ifNil:[  ^self videoElement src: aStreamOrURL ].\x0a\x09\x0a\x09self videoElement src: streamObj ",
+referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifNotNil:", "at:", "mozSrcObject:", "videoElement", "at:ifAbsent:", "ifNil:", "constructor:value:", "src:"]
+messageSends: ["ifNotNil:", "at:", "mozSrcObject:", "videoElement", "at:ifAbsent:", "ifNil:", "URL:", "src:"]
 }),
 $globals.AmberVideo);
 

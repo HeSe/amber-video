@@ -5,17 +5,36 @@ Object subclass: #AmberVideo
 
 !AmberVideo methodsFor: 'starting'!
 
+autobuffer: aBool
+
+	self videoElement autobuffer: aBool
+!
+
 autoplay: aBool
 
  	self videoElement at: 'autoplay' put: aBool
 !
 
+configureForBrowser
+
+	#( 'getUserMedia' 'webkitGetUserMedia' 'mozGetUserMedia' 'msGetUserMedia') 
+		do:[:each | 	| getUserMediaBlock |
+			(getUserMediaBlock := navigator at: each)	
+					ifNotNil:[ navigator at: 'getUserMedia' put: getUserMediaBlock ].
+  		].
+	
+   #( 'URL' 'webkitURL' 'mozURL' 'msURL') 
+		do:[:each | 	| urlBlock |
+			(urlBlock := window at: each)	
+					ifNotNil:[ ^window at: 'URL' put: urlBlock ].
+  		].
+!
+
 configureVideo
 	
-	
-  (navigator at: 'mozGetUserMedia') ifNil:[self halt].
+  (navigator at: 'getUserMedia') ifNil:[^self]. "you must specify the right method for your browser"
   
-   navigator mozGetUserMedia: #{'video' -> true.  'audio' -> self playAudio} success: self videoProcess error: self errorCallback
+   navigator getUserMedia: #{'video' -> true.  'audio' -> self playAudio} success: self videoProcess error: self errorCallback
 !
 
 cssId
@@ -31,6 +50,18 @@ cssId: anId
 errorCallback
 
 	^ [ :sig | self halt ]
+!
+
+height: anInt
+
+	self videoElement height: anInt
+!
+
+initialize
+
+
+	super initialize.
+	self configureForBrowser.
 !
 
 mute
@@ -53,6 +84,11 @@ playAudio: aBool
  	playAudio:= aBool
 !
 
+poster: aPicURL
+
+	self videoElement poster: aPicURL
+!
+
 renderOn: html
 
 	self cssId: 'videoOutput'.
@@ -69,14 +105,22 @@ reset
 	self setSrcObject: nil
 !
 
-setSrcObject: aStream
-
-	self videoElement mozSrcObject: aStream.
-!
-
 showControls: aBool
 
  	self videoElement at: 'controls' put: aBool
+!
+
+src: aStreamOrURL
+
+	| streamObj |
+
+	( navigator at: 'mozGetUserMedia' ) ifNotNil:[ ^self videoElement mozSrcObject: aStreamOrURL ]. 
+	
+	window at: 'URL' ifAbsent:[^self]. "not supported in this browser"
+	
+	(streamObj :=  (NativeFunction constructor: 'window.URL' value:aStreamOrURL) ) ifNil:[  ^self videoElement src: aStreamOrURL ].
+	
+	self videoElement src: streamObj
 !
 
 stop
@@ -107,9 +151,14 @@ videoElement
 videoProcess
 
 	^ [ :stream | 
-			self setSrcObject: stream.
+			self src: stream.
 			self play
        ]
+!
+
+width: anInt
+
+	self videoElement width: anInt
 ! !
 
 !AmberVideo class methodsFor: 'starting'!

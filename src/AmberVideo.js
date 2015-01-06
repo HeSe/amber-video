@@ -6,6 +6,30 @@ $core.packages["AmberVideo"].transport = {"type":"amd","amdNamespace":"amber-vid
 $core.addClass('AmberVideo', $globals.Object, ['cssId', 'videoElement', 'playAudio'], 'AmberVideo');
 $core.addMethod(
 $core.method({
+selector: "autobuffer:",
+protocol: 'starting',
+fn: function (aBool){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(self._videoElement())._autobuffer_(aBool);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"autobuffer:",{aBool:aBool},$globals.AmberVideo)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBool"],
+source: "autobuffer: aBool\x0a\x0a\x09self videoElement autobuffer: aBool",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["autobuffer:", "videoElement"]
+}),
+$globals.AmberVideo);
+
+$core.addMethod(
+$core.method({
 selector: "autoplay:",
 protocol: 'starting',
 fn: function (aBool){
@@ -30,6 +54,76 @@ $globals.AmberVideo);
 
 $core.addMethod(
 $core.method({
+selector: "configureForBrowser",
+protocol: 'starting',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2,$3,$receiver;
+var $early={};
+try {
+["getUserMedia", "webkitGetUserMedia", "mozGetUserMedia", "msGetUserMedia"]._do_((function(each){
+var getUserMediaBlock;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+getUserMediaBlock=$recv(navigator)._at_(each);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["at:"]=1;
+//>>excludeEnd("ctx");
+$1=getUserMediaBlock;
+if(($receiver = $1) == null || $receiver.isNil){
+return $1;
+} else {
+return $recv(navigator)._at_put_("getUserMedia",getUserMediaBlock);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["at:put:"]=1;
+//>>excludeEnd("ctx");
+};
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each,getUserMediaBlock:getUserMediaBlock},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["do:"]=1;
+//>>excludeEnd("ctx");
+["URL", "webkitURL", "mozURL", "msURL"]._do_((function(each){
+var urlBlock;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+urlBlock=$recv(window)._at_(each);
+$2=urlBlock;
+if(($receiver = $2) == null || $receiver.isNil){
+return $2;
+} else {
+$3=$recv(window)._at_put_("URL",urlBlock);
+throw $early=[$3];
+};
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each,urlBlock:urlBlock},$ctx1,3)});
+//>>excludeEnd("ctx");
+}));
+return self;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"configureForBrowser",{},$globals.AmberVideo)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "configureForBrowser\x0a\x0a\x09#( 'getUserMedia' 'webkitGetUserMedia' 'mozGetUserMedia' 'msGetUserMedia') \x0a\x09\x09do:[:each | \x09| getUserMediaBlock |\x0a\x09\x09\x09(getUserMediaBlock := navigator at: each)\x09\x0a\x09\x09\x09\x09\x09ifNotNil:[ navigator at: 'getUserMedia' put: getUserMediaBlock ].\x0a  \x09\x09].\x0a\x09\x0a   #( 'URL' 'webkitURL' 'mozURL' 'msURL') \x0a\x09\x09do:[:each | \x09| urlBlock |\x0a\x09\x09\x09(urlBlock := window at: each)\x09\x0a\x09\x09\x09\x09\x09ifNotNil:[ ^window at: 'URL' put: urlBlock ].\x0a  \x09\x09].\x0a\x09\x0a  ",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["do:", "ifNotNil:", "at:", "at:put:"]
+}),
+$globals.AmberVideo);
+
+$core.addMethod(
+$core.method({
 selector: "configureVideo",
 protocol: 'starting',
 fn: function (){
@@ -38,13 +132,13 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
-$1=$recv(navigator)._at_("mozGetUserMedia");
+$1=$recv(navigator)._at_("getUserMedia");
 if(($receiver = $1) == null || $receiver.isNil){
-self._halt();
+return self;
 } else {
 $1;
 };
-$recv(navigator)._mozGetUserMedia_success_error_($globals.HashedCollection._newFromPairs_(["video",true,"audio",self._playAudio()]),self._videoProcess(),self._errorCallback());
+$recv(navigator)._getUserMedia_success_error_($globals.HashedCollection._newFromPairs_(["video",true,"audio",self._playAudio()]),self._videoProcess(),self._errorCallback());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"configureVideo",{},$globals.AmberVideo)});
@@ -52,10 +146,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "configureVideo\x0a\x09\x0a\x09\x0a  (navigator at: 'mozGetUserMedia') ifNil:[self halt].\x0a  \x0a   navigator mozGetUserMedia: #{'video' -> true.  'audio' -> self playAudio} success: self videoProcess error: self errorCallback",
+source: "configureVideo\x0a\x09\x0a  (navigator at: 'getUserMedia') ifNil:[^self]. \x22you must specify the right method for your browser\x22\x0a  \x0a   navigator getUserMedia: #{'video' -> true.  'audio' -> self playAudio} success: self videoProcess error: self errorCallback",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifNil:", "at:", "halt", "mozGetUserMedia:success:error:", "playAudio", "videoProcess", "errorCallback"]
+messageSends: ["ifNil:", "at:", "getUserMedia:success:error:", "playAudio", "videoProcess", "errorCallback"]
 }),
 $globals.AmberVideo);
 
@@ -128,6 +222,62 @@ source: "errorCallback\x0a\x0a\x09^ [ :sig | self halt ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["halt"]
+}),
+$globals.AmberVideo);
+
+$core.addMethod(
+$core.method({
+selector: "height:",
+protocol: 'starting',
+fn: function (anInt){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(self._videoElement())._height_(anInt);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"height:",{anInt:anInt},$globals.AmberVideo)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anInt"],
+source: "height: anInt\x0a\x0a\x09self videoElement height: anInt",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["height:", "videoElement"]
+}),
+$globals.AmberVideo);
+
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: 'starting',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true, 
+//>>excludeEnd("ctx");
+$globals.AmberVideo.superclass.fn.prototype._initialize.apply($recv(self), []));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = false;
+//>>excludeEnd("ctx");;
+self._configureForBrowser();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.AmberVideo)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x0a\x0a\x09super initialize.\x0a\x09self configureForBrowser.",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["initialize", "configureForBrowser"]
 }),
 $globals.AmberVideo);
 
@@ -231,6 +381,30 @@ $globals.AmberVideo);
 
 $core.addMethod(
 $core.method({
+selector: "poster:",
+protocol: 'starting',
+fn: function (aPicURL){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(self._videoElement())._poster_(aPicURL);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"poster:",{aPicURL:aPicURL},$globals.AmberVideo)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aPicURL"],
+source: "poster: aPicURL\x0a\x0a\x09self videoElement poster: aPicURL",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["poster:", "videoElement"]
+}),
+$globals.AmberVideo);
+
+$core.addMethod(
+$core.method({
 selector: "renderOn:",
 protocol: 'starting',
 fn: function (html){
@@ -285,30 +459,6 @@ $globals.AmberVideo);
 
 $core.addMethod(
 $core.method({
-selector: "setSrcObject:",
-protocol: 'starting',
-fn: function (aStream){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv(self._videoElement())._mozSrcObject_(aStream);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setSrcObject:",{aStream:aStream},$globals.AmberVideo)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aStream"],
-source: "setSrcObject: aStream\x0a\x0a\x09self videoElement mozSrcObject: aStream.",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["mozSrcObject:", "videoElement"]
-}),
-$globals.AmberVideo);
-
-$core.addMethod(
-$core.method({
 selector: "showControls:",
 protocol: 'starting',
 fn: function (aBool){
@@ -328,6 +478,67 @@ source: "showControls: aBool\x0a\x0a \x09self videoElement at: 'controls' put: a
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "videoElement"]
+}),
+$globals.AmberVideo);
+
+$core.addMethod(
+$core.method({
+selector: "src:",
+protocol: 'starting',
+fn: function (aStreamOrURL){
+var self=this;
+var streamObj;
+function $NativeFunction(){return $globals.NativeFunction||(typeof NativeFunction=="undefined"?nil:NativeFunction)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$3,$2,$4,$6,$5,$receiver;
+var $early={};
+try {
+$1=$recv(navigator)._at_("mozGetUserMedia");
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
+} else {
+$3=self._videoElement();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["videoElement"]=1;
+//>>excludeEnd("ctx");
+$2=$recv($3)._mozSrcObject_(aStreamOrURL);
+return $2;
+};
+$recv(window)._at_ifAbsent_("URL",(function(){
+throw $early=[self];
+
+}));
+streamObj=$recv($NativeFunction())._constructor_value_("window.URL",aStreamOrURL);
+$4=streamObj;
+if(($receiver = $4) == null || $receiver.isNil){
+$6=self._videoElement();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["videoElement"]=2;
+//>>excludeEnd("ctx");
+$5=$recv($6)._src_(aStreamOrURL);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["src:"]=1;
+//>>excludeEnd("ctx");
+return $5;
+} else {
+$4;
+};
+$recv(self._videoElement())._src_(streamObj);
+return self;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"src:",{aStreamOrURL:aStreamOrURL,streamObj:streamObj},$globals.AmberVideo)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aStreamOrURL"],
+source: "src: aStreamOrURL\x0a\x0a\x09| streamObj |\x0a\x0a\x09( navigator at: 'mozGetUserMedia' ) ifNotNil:[ ^self videoElement mozSrcObject: aStreamOrURL ]. \x0a\x09\x0a\x09window at: 'URL' ifAbsent:[^self]. \x22not supported in this browser\x22\x0a\x09\x0a\x09(streamObj :=  (NativeFunction constructor: 'window.URL' value:aStreamOrURL) ) ifNil:[  ^self videoElement src: aStreamOrURL ].\x0a\x09\x0a\x09self videoElement src: streamObj ",
+referencedClasses: ["NativeFunction"],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "at:", "mozSrcObject:", "videoElement", "at:ifAbsent:", "ifNil:", "constructor:value:", "src:"]
 }),
 $globals.AmberVideo);
 
@@ -474,7 +685,7 @@ $1=(function(stream){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-self._setSrcObject_(stream);
+self._src_(stream);
 return self._play();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
@@ -487,10 +698,34 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "videoProcess\x0a\x0a\x09^ [ :stream | \x0a\x09\x09\x09self setSrcObject: stream.\x0a\x09\x09\x09self play\x0a       ]",
+source: "videoProcess\x0a\x0a\x09^ [ :stream | \x0a\x09\x09\x09self src: stream.\x0a\x09\x09\x09self play\x0a       ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["setSrcObject:", "play"]
+messageSends: ["src:", "play"]
+}),
+$globals.AmberVideo);
+
+$core.addMethod(
+$core.method({
+selector: "width:",
+protocol: 'starting',
+fn: function (anInt){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(self._videoElement())._width_(anInt);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"width:",{anInt:anInt},$globals.AmberVideo)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anInt"],
+source: "width: anInt\x0a\x0a\x09self videoElement width: anInt",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["width:", "videoElement"]
 }),
 $globals.AmberVideo);
 

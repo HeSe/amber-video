@@ -494,17 +494,24 @@ return $core.withContext(function($ctx1) {
 var $1,$3,$2,$4,$6,$5,$receiver;
 var $early={};
 try {
-$1=$recv(navigator)._at_("mozGetUserMedia");
-if(($receiver = $1) == null || $receiver.isNil){
-$1;
-} else {
-$3=self._videoElement();
+$1=self._videoElement();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["videoElement"]=1;
 //>>excludeEnd("ctx");
+$recv($1)._at_ifPresent_("mozSrcObject",(function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$3=self._videoElement();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["videoElement"]=2;
+//>>excludeEnd("ctx");
 $2=$recv($3)._mozSrcObject_(aStreamOrURL);
-return $2;
-};
+throw $early=[$2];
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
 $recv(window)._at_ifAbsent_("URL",(function(){
 throw $early=[self];
 
@@ -514,7 +521,7 @@ $4=streamObj;
 if(($receiver = $4) == null || $receiver.isNil){
 $6=self._videoElement();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["videoElement"]=2;
+$ctx1.sendIdx["videoElement"]=3;
 //>>excludeEnd("ctx");
 $5=$recv($6)._src_(aStreamOrURL);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -534,10 +541,10 @@ catch(e) {if(e===$early)return e[0]; throw e}
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStreamOrURL"],
-source: "src: aStreamOrURL\x0a\x0a\x09| streamObj |\x0a\x0a\x09( navigator at: 'mozGetUserMedia' ) ifNotNil:[ ^self videoElement mozSrcObject: aStreamOrURL ]. \x0a\x09\x0a\x09window at: 'URL' ifAbsent:[^self]. \x22not supported in this browser\x22\x0a\x09\x0a\x09(streamObj :=  window URL: aStreamOrURL ) ifNil:[  ^self videoElement src: aStreamOrURL ].\x0a\x09\x0a\x09self videoElement src: streamObj ",
+source: "src: aStreamOrURL\x0a\x0a\x09| streamObj |\x0a\x0a\x09self videoElement at: 'mozSrcObject' ifPresent:[ ^self videoElement mozSrcObject: aStreamOrURL ]. \x0a\x09\x0a\x09window at: 'URL' ifAbsent:[^self]. \x22not supported in this browser\x22\x0a\x09\x0a\x09(streamObj :=  window URL: aStreamOrURL ) ifNil:[  ^self videoElement src: aStreamOrURL ].\x0a\x09\x0a\x09self videoElement src: streamObj ",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifNotNil:", "at:", "mozSrcObject:", "videoElement", "at:ifAbsent:", "ifNil:", "URL:", "src:"]
+messageSends: ["at:ifPresent:", "videoElement", "mozSrcObject:", "at:ifAbsent:", "ifNil:", "URL:", "src:"]
 }),
 $globals.AmberVideo);
 

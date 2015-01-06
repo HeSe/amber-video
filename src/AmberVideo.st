@@ -114,7 +114,7 @@ src: aStreamOrURL
 
 	| streamObj |
 
-	( navigator at: 'mozGetUserMedia' ) ifNotNil:[ ^self videoElement mozSrcObject: aStreamOrURL ]. 
+	self videoElement at: 'mozSrcObject' ifPresent:[ ^self videoElement mozSrcObject: aStreamOrURL ]. 
 	
 	window at: 'URL' ifAbsent:[^self]. "not supported in this browser"
 	

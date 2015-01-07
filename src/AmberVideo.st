@@ -12,7 +12,7 @@ autobuffer: aBool
 
 autoplay: aBool
 
- 	self videoElement at: 'autoplay' put: aBool
+	 self videoElement autoplay: aBool
 !
 
 configureForBrowser
@@ -107,7 +107,7 @@ reset
 
 showControls: aBool
 
- 	self videoElement at: 'controls' put: aBool
+	self videoElement controls: aBool
 !
 
 src: aStreamOrURL

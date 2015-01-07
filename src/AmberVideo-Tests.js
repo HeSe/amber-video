@@ -13,12 +13,17 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
+var $1,$2;
 $1=self._videoController();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["videoController"]=1;
 //>>excludeEnd("ctx");
 $recv($1)._playAudio_(false);
+$2=self._videoController();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["videoController"]=2;
+//>>excludeEnd("ctx");
+$recv($2)._showControls_(true);
 $recv(self._videoController())._configureVideo();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -27,10 +32,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "ensureVideo\x0a\x09self videoController playAudio: false.\x0a\x09self videoController configureVideo",
+source: "ensureVideo\x0a\x09self videoController playAudio: false.\x0a\x09self videoController showControls: true.\x0a\x09self videoController configureVideo",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["playAudio:", "videoController", "configureVideo"]
+messageSends: ["playAudio:", "videoController", "showControls:", "configureVideo"]
 }),
 $globals.AmberVideoTest);
 

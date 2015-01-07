@@ -37,7 +37,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv(self._videoElement())._at_put_("autoplay",aBool);
+$recv(self._videoElement())._autoplay_(aBool);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"autoplay:",{aBool:aBool},$globals.AmberVideo)});
@@ -45,10 +45,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBool"],
-source: "autoplay: aBool\x0a\x0a \x09self videoElement at: 'autoplay' put: aBool",
+source: "autoplay: aBool\x0a\x0a\x09 self videoElement autoplay: aBool",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["at:put:", "videoElement"]
+messageSends: ["autoplay:", "videoElement"]
 }),
 $globals.AmberVideo);
 
@@ -466,7 +466,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv(self._videoElement())._at_put_("controls",aBool);
+$recv(self._videoElement())._controls_(aBool);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"showControls:",{aBool:aBool},$globals.AmberVideo)});
@@ -474,10 +474,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBool"],
-source: "showControls: aBool\x0a\x0a \x09self videoElement at: 'controls' put: aBool",
+source: "showControls: aBool\x0a\x0a\x09self videoElement controls: aBool",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["at:put:", "videoElement"]
+messageSends: ["controls:", "videoElement"]
 }),
 $globals.AmberVideo);
 

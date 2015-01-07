@@ -7,6 +7,7 @@ Widget subclass: #AmberVideoTest
 
 ensureVideo
 	self videoController playAudio: false.
+	self videoController showControls: true.
 	self videoController configureVideo
 !
 

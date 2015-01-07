@@ -17,22 +17,23 @@ autoplay: aBool
 
 configureForBrowser
 
+	"specify the browser specific functionalities for further usage"
+
 	#( 'getUserMedia' 'webkitGetUserMedia' 'mozGetUserMedia' 'msGetUserMedia') 
-		do:[:each | 	| getUserMediaBlock |
-			(getUserMediaBlock := navigator at: each)	
-					ifNotNil:[ navigator at: 'getUserMedia' put: getUserMediaBlock ].
+		do:[:each | 	
+			navigator at: each ifPresent:[:block | navigator at: 'getUserMedia' put: block ].
   		].
 	
    #( 'URL' 'webkitURL' 'mozURL' 'msURL') 
-		do:[:each | 	| urlBlock |
-			(urlBlock := window at: each)	
-					ifNotNil:[ ^window at: 'URL' put: urlBlock ].
+		do:[:each | 
+			window at: each ifPresent:[ :block | block basicAt: 'klass' put: nil asJSON.
+																	^window at: 'URL' put: block ].
   		].
 !
 
 configureVideo
 	
-  (navigator at: 'getUserMedia') ifNil:[^self]. "you must specify the right method for your browser"
+   navigator at: 'getUserMedia' ifAbsent:[^self]. "you must specify the right method for your browser"
   
    navigator getUserMedia: #{'video' -> true.  'audio' -> self playAudio} success: self videoProcess error: self errorCallback
 !
@@ -112,15 +113,13 @@ showControls: aBool
 
 src: aStreamOrURL
 
-	| streamObj |
-
 	self videoElement at: 'mozSrcObject' ifPresent:[ ^self videoElement mozSrcObject: aStreamOrURL ]. 
 	
-	window at: 'URL' ifAbsent:[^self]. "not supported in this browser"
+	(PlatformInterface existsGlobal: 'URL' ) ifFalse: [^self].
 	
-	(streamObj :=  window URL: aStreamOrURL ) ifNil:[  ^self videoElement src: aStreamOrURL ].
-	
-	self videoElement src: streamObj
+  	(PlatformInterface globals URL createObjectURL: aStreamOrURL)
+            ifNil: [ self videoElement src: aStreamOrURL ]
+            ifNotNil: [ :streamObj | self videoElement src: streamObj ]
 !
 
 stop

@@ -61,49 +61,52 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$receiver;
+var $1;
 var $early={};
 try {
 ["getUserMedia", "webkitGetUserMedia", "mozGetUserMedia", "msGetUserMedia"]._do_((function(each){
-var getUserMediaBlock;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-getUserMediaBlock=$recv(navigator)._at_(each);
+return $recv(navigator)._at_ifPresent_(each,(function(block){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["at:"]=1;
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-$1=getUserMediaBlock;
-if(($receiver = $1) == null || $receiver.isNil){
-return $1;
-} else {
-return $recv(navigator)._at_put_("getUserMedia",getUserMediaBlock);
+return $recv(navigator)._at_put_("getUserMedia",block);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["at:put:"]=1;
+$ctx3.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
-};
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each,getUserMediaBlock:getUserMediaBlock},$ctx1,1)});
+}, function($ctx3) {$ctx3.fillBlock({block:block},$ctx2,2)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["at:ifPresent:"]=1;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["do:"]=1;
 //>>excludeEnd("ctx");
 ["URL", "webkitURL", "mozURL", "msURL"]._do_((function(each){
-var urlBlock;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-urlBlock=$recv(window)._at_(each);
-$2=urlBlock;
-if(($receiver = $2) == null || $receiver.isNil){
-return $2;
-} else {
-$3=$recv(window)._at_put_("URL",urlBlock);
-throw $early=[$3];
-};
+return $recv(window)._at_ifPresent_(each,(function(block){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each,urlBlock:urlBlock},$ctx1,3)});
+return $core.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
+$recv(block)._basicAt_put_("klass",nil._asJSON());
+$1=$recv(window)._at_put_("URL",block);
+throw $early=[$1];
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx3) {$ctx3.fillBlock({block:block},$ctx2,4)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)});
 //>>excludeEnd("ctx");
 }));
 return self;
@@ -115,10 +118,10 @@ catch(e) {if(e===$early)return e[0]; throw e}
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "configureForBrowser\x0a\x0a\x09#( 'getUserMedia' 'webkitGetUserMedia' 'mozGetUserMedia' 'msGetUserMedia') \x0a\x09\x09do:[:each | \x09| getUserMediaBlock |\x0a\x09\x09\x09(getUserMediaBlock := navigator at: each)\x09\x0a\x09\x09\x09\x09\x09ifNotNil:[ navigator at: 'getUserMedia' put: getUserMediaBlock ].\x0a  \x09\x09].\x0a\x09\x0a   #( 'URL' 'webkitURL' 'mozURL' 'msURL') \x0a\x09\x09do:[:each | \x09| urlBlock |\x0a\x09\x09\x09(urlBlock := window at: each)\x09\x0a\x09\x09\x09\x09\x09ifNotNil:[ ^window at: 'URL' put: urlBlock ].\x0a  \x09\x09].\x0a\x09\x0a  ",
+source: "configureForBrowser\x0a\x0a\x09\x22specify the browser specific functionalities for further usage\x22\x0a\x0a\x09#( 'getUserMedia' 'webkitGetUserMedia' 'mozGetUserMedia' 'msGetUserMedia') \x0a\x09\x09do:[:each | \x09\x0a\x09\x09\x09navigator at: each ifPresent:[:block | navigator at: 'getUserMedia' put: block ].\x0a  \x09\x09].\x0a\x09\x0a   #( 'URL' 'webkitURL' 'mozURL' 'msURL') \x0a\x09\x09do:[:each | \x0a\x09\x09\x09window at: each ifPresent:[ :block | block basicAt: 'klass' put: nil asJSON.\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09^window at: 'URL' put: block ].\x0a  \x09\x09].\x0a\x09\x0a  ",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["do:", "ifNotNil:", "at:", "at:put:"]
+messageSends: ["do:", "at:ifPresent:", "at:put:", "basicAt:put:", "asJSON"]
 }),
 $globals.AmberVideo);
 
@@ -131,25 +134,26 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$receiver;
-$1=$recv(navigator)._at_("getUserMedia");
-if(($receiver = $1) == null || $receiver.isNil){
-return self;
-} else {
-$1;
-};
+var $early={};
+try {
+$recv(navigator)._at_ifAbsent_("getUserMedia",(function(){
+throw $early=[self];
+
+}));
 $recv(navigator)._getUserMedia_success_error_($globals.HashedCollection._newFromPairs_(["video",true,"audio",self._playAudio()]),self._videoProcess(),self._errorCallback());
 return self;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"configureVideo",{},$globals.AmberVideo)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "configureVideo\x0a\x09\x0a  (navigator at: 'getUserMedia') ifNil:[^self]. \x22you must specify the right method for your browser\x22\x0a  \x0a   navigator getUserMedia: #{'video' -> true.  'audio' -> self playAudio} success: self videoProcess error: self errorCallback",
+source: "configureVideo\x0a\x09\x0a   navigator at: 'getUserMedia' ifAbsent:[^self]. \x22you must specify the right method for your browser\x22\x0a  \x0a   navigator getUserMedia: #{'video' -> true.  'audio' -> self playAudio} success: self videoProcess error: self errorCallback",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifNil:", "at:", "getUserMedia:success:error:", "playAudio", "videoProcess", "errorCallback"]
+messageSends: ["at:ifAbsent:", "getUserMedia:success:error:", "playAudio", "videoProcess", "errorCallback"]
 }),
 $globals.AmberVideo);
 
@@ -487,11 +491,11 @@ selector: "src:",
 protocol: 'starting',
 fn: function (aStreamOrURL){
 var self=this;
-var streamObj;
+function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$3,$2,$4,$6,$5,$receiver;
+var $1,$3,$2,$4,$5,$6,$receiver;
 var $early={};
 try {
 $1=self._videoElement();
@@ -512,39 +516,38 @@ throw $early=[$2];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-$recv(window)._at_ifAbsent_("URL",(function(){
-throw $early=[self];
-
-}));
-streamObj=$recv(window)._URL_(aStreamOrURL);
-$4=streamObj;
-if(($receiver = $4) == null || $receiver.isNil){
+$4=$recv($PlatformInterface())._existsGlobal_("URL");
+if(!$core.assert($4)){
+return self;
+};
+$5=$recv($recv($recv($PlatformInterface())._globals())._URL())._createObjectURL_(aStreamOrURL);
+if(($receiver = $5) == null || $receiver.isNil){
 $6=self._videoElement();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["videoElement"]=3;
 //>>excludeEnd("ctx");
-$5=$recv($6)._src_(aStreamOrURL);
+$recv($6)._src_(aStreamOrURL);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["src:"]=1;
 //>>excludeEnd("ctx");
-return $5;
 } else {
-$4;
-};
+var streamObj;
+streamObj=$receiver;
 $recv(self._videoElement())._src_(streamObj);
+};
 return self;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"src:",{aStreamOrURL:aStreamOrURL,streamObj:streamObj},$globals.AmberVideo)});
+}, function($ctx1) {$ctx1.fill(self,"src:",{aStreamOrURL:aStreamOrURL},$globals.AmberVideo)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStreamOrURL"],
-source: "src: aStreamOrURL\x0a\x0a\x09| streamObj |\x0a\x0a\x09self videoElement at: 'mozSrcObject' ifPresent:[ ^self videoElement mozSrcObject: aStreamOrURL ]. \x0a\x09\x0a\x09window at: 'URL' ifAbsent:[^self]. \x22not supported in this browser\x22\x0a\x09\x0a\x09(streamObj :=  window URL: aStreamOrURL ) ifNil:[  ^self videoElement src: aStreamOrURL ].\x0a\x09\x0a\x09self videoElement src: streamObj ",
-referencedClasses: [],
+source: "src: aStreamOrURL\x0a\x0a\x09self videoElement at: 'mozSrcObject' ifPresent:[ ^self videoElement mozSrcObject: aStreamOrURL ]. \x0a\x09\x0a\x09(PlatformInterface existsGlobal: 'URL' ) ifFalse: [^self].\x0a\x09\x0a  \x09(PlatformInterface globals URL createObjectURL: aStreamOrURL)\x0a            ifNil: [ self videoElement src: aStreamOrURL ]\x0a            ifNotNil: [ :streamObj | self videoElement src: streamObj ]\x0a\x09",
+referencedClasses: ["PlatformInterface"],
 //>>excludeEnd("ide");
-messageSends: ["at:ifPresent:", "videoElement", "mozSrcObject:", "at:ifAbsent:", "ifNil:", "URL:", "src:"]
+messageSends: ["at:ifPresent:", "videoElement", "mozSrcObject:", "ifFalse:", "existsGlobal:", "ifNil:ifNotNil:", "createObjectURL:", "URL", "globals", "src:"]
 }),
 $globals.AmberVideo);
 

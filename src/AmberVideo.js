@@ -767,11 +767,11 @@ selector: "start",
 protocol: 'starting',
 fn: function (){
 var self=this;
-function $AmberVideoTest(){return $globals.AmberVideoTest||(typeof AmberVideoTest=="undefined"?nil:AmberVideoTest)}
+function $AmberResizeableWebCamTest(){return $globals.AmberResizeableWebCamTest||(typeof AmberResizeableWebCamTest=="undefined"?nil:AmberResizeableWebCamTest)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($AmberVideoTest())._start();
+$recv($AmberResizeableWebCamTest())._start();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"start",{},$globals.AmberVideo.klass)});
@@ -779,8 +779,8 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "start\x0a\x0a\x09AmberVideoTest start",
-referencedClasses: ["AmberVideoTest"],
+source: "start\x0a\x0a\x09\x22AmberSimpleWebCamTest start.\x22\x0a\x09AmberResizeableWebCamTest start.",
+referencedClasses: ["AmberResizeableWebCamTest"],
 //>>excludeEnd("ide");
 messageSends: ["start"]
 }),

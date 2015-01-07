@@ -170,6 +170,7 @@ onCssId: anId
 
 start
 
-	AmberVideoTest start
+	"AmberSimpleWebCamTest start."
+	AmberResizeableWebCamTest start.
 ! !
 
